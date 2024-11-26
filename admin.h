@@ -2,7 +2,7 @@
 #define ADMIN_H
 #include"user.h"
 
-extern int accountCounter;
+//extern int accountCounter;
 //extern struct Admin adminAccount;
 
 struct Admin
@@ -10,8 +10,6 @@ struct Admin
     char adminID[20];
     char adminPassword[20];
 };
-
-// struct user *findUserByAccountNumber(struct user *users, int accountNumber);
 
 int adminlogin();
 void adminMenu(struct user **users);

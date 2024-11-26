@@ -16,8 +16,6 @@ struct user {
 };
 
 
-// struct user *findUserByAccountNumber(struct user *users, int accountNumber);
-
 
 struct user *userLogin(struct user *users);
 void displayUserMenu(struct user *user, struct user *users);
@@ -25,9 +23,9 @@ void deposit(struct user *user, float amount);
 void withdraw(struct user *user, float amount);
 void transfer(struct user *sender, struct user *receiver, float amount);
 void addTransaction(struct user *user, const char *type, float amount);
-//void checkBalance(struct user *user);
 // void viewTransactionHistory(struct user *user);
 // void viewAccountDetails(struct user *user);
+
 
 
 #endif // USER_H

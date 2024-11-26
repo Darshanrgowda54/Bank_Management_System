@@ -1,6 +1,5 @@
 #ifndef FILEOPERATIONS_H
 #define FILEOPERATIONS_H
-
 #include "user.h"
 
 void saveDataToFile(struct user *users, const char *filename);
