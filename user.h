@@ -23,8 +23,6 @@ void deposit(struct user *user, float amount);
 void withdraw(struct user *user, float amount);
 void transfer(struct user *sender, struct user *receiver, float amount);
 void addTransaction(struct user *user, const char *type, float amount);
-// void viewTransactionHistory(struct user *user);
-// void viewAccountDetails(struct user *user);
 
 
 

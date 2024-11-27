@@ -5,15 +5,17 @@
 #include "user.h"
 
 
-void addTransaction(struct user *user, const char *type, float amount) {
+void addTransaction(struct user *user, const char *type, float amount)
+{
     struct transaction *newTransaction = (struct transaction *)malloc(sizeof(struct transaction));
-    if (!newTransaction) {
+    if (!newTransaction)
+    {
         printf("Memory allocation failed!\n");
         return;
     }
 
-    // Safely copy the transaction type using strncpy_s
-    if (strncpy_s(newTransaction->type, sizeof(newTransaction->type), type, sizeof(newTransaction->type) - 1) != 0) {
+    if (strncpy_s(newTransaction->type, sizeof(newTransaction->type), type, sizeof(newTransaction->type) - 1) != 0)
+    {
         printf("Failed to copy transaction type.\n");
         free(newTransaction);
         return;
@@ -22,11 +24,14 @@ void addTransaction(struct user *user, const char *type, float amount) {
     newTransaction->amount = amount;
     newTransaction->next = NULL;
 
-    if (user->transactions == NULL) {
+    if (user->transactions == NULL)
+    {
         user->transactions = newTransaction;
-    } else {
+    } else
+    {
         struct transaction *current = user->transactions;
-        while (current->next != NULL) {
+        while (current->next != NULL)
+        {
             current = current->next;
         }
         current->next = newTransaction;
@@ -34,8 +39,10 @@ void addTransaction(struct user *user, const char *type, float amount) {
 }
 
 
-void freeTransactions(struct transaction *transactions) {
-    while (transactions) {
+void freeTransactions(struct transaction *transactions)
+{
+    while (transactions)
+    {
         struct transaction *temp = transactions;
         transactions = transactions->next;
         free(temp);
