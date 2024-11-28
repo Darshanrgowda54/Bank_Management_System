@@ -38,8 +38,7 @@ int mainmenu() {
         case 2:
         {
             struct user *userlogin = userLogin(users);
-            if (userlogin != NULL)
-            {
+            if (userlogin != NULL) {
                 printf("User login successful.\n");
                 displayUserMenu(userlogin, users);
             }
