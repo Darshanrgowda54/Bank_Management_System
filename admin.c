@@ -46,7 +46,7 @@ void adminMenu(struct user **users)
     int choice;
     while (1)
     {
-        printf("\n... Admin Menu ...\n");
+        printf("\n________ Admin Menu ________\n");
         printf("1. Create Account\n");
         printf("2. Delete Account\n");
         printf("3. Update Account\n");
@@ -113,8 +113,8 @@ void adminMenu(struct user **users)
             sortUsersByAccountType(users);
             break;
         case LOGOUT:
-            saveDataToFile(*users, "bank_data.txt");
-            printf("... Logout from Admin ...\n");
+            saveDataToFile(*users, "bank_data.JSON");
+            printf("________ Logout from Admin ________\n");
             return;
         default:
             printf("Invalid choice. Please try again.\n");
