@@ -4,6 +4,7 @@
 #include "user.h"
 #include "finduserbyaccountnumber.h"
 #include "bankaccount.h"
+#include "fileoperations.h"
 
 
 struct user *userLogin(struct user *users)
@@ -28,6 +29,14 @@ struct user *userLogin(struct user *users)
 }
 
 
+typedef enum {
+    DEPOSITE =1,
+    WITHDRAW,
+    TRANDFER,
+    CHECKBALANCE,
+    LOGOUT
+} MenuOption;
+
 
 void displayUserMenu(struct user *user, struct user *users)
 {
@@ -43,9 +52,9 @@ void displayUserMenu(struct user *user, struct user *users)
         printf("Select an option: ");
         scanf("%d", &choice);
 
-        switch (choice)
+        switch ((MenuOption)choice)
         {
-        case 1:
+        case DEPOSITE:
         {
             float amount;
             printf("Enter amount to deposit: ");
@@ -53,7 +62,7 @@ void displayUserMenu(struct user *user, struct user *users)
             deposit(user, amount);
             break;
         }
-        case 2:
+        case WITHDRAW:
         {
             float amount;
             printf("Enter the amount to withdraw: ");
@@ -61,7 +70,7 @@ void displayUserMenu(struct user *user, struct user *users)
             withdraw(user, amount);
             break;
         }
-        case 3:
+        case TRANDFER:
         {
             int accountNumber;
             printf("Enter receiver account number: ");
@@ -79,10 +88,11 @@ void displayUserMenu(struct user *user, struct user *users)
             }
             break;
         }
-        case 4:
+        case CHECKBALANCE:
             printf("Your current balance is: %.2f\n", user->account.balance);
             break;
-        case 5:
+        case LOGOUT:
+            saveDataToFile(users, "bank_data.txt");
             printf("... Logout form User ...\n");
             return;
         default:
@@ -93,7 +103,8 @@ void displayUserMenu(struct user *user, struct user *users)
 }
 
 
-void deposit(struct user *user, float amount) {
+void deposit(struct user *user, float amount)
+{
     if (amount > 0) {
         user->account.balance += amount;
         addTransaction(user, "Deposit", amount);
@@ -104,7 +115,8 @@ void deposit(struct user *user, float amount) {
 }
 
 
-void withdraw(struct user *user, float amount) {
+void withdraw(struct user *user, float amount)
+{
     if (amount > 0 && (user->account.balance - amount >= 500)) {
         user->account.balance -= amount;
         addTransaction(user, "Withdraw", amount);
@@ -117,7 +129,8 @@ void withdraw(struct user *user, float amount) {
 }
 
 
-void transfer(struct user *sender, struct user *receiver, float amount) {
+void transfer(struct user *sender, struct user *receiver, float amount)
+{
     if (amount > 0 && (sender->account.balance - amount >= 500)) {
         sender->account.balance -= amount;
         receiver->account.balance += amount;

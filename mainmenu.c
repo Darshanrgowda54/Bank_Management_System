@@ -5,12 +5,18 @@
 #include "user.h"
 #include "fileoperations.h"
 
+typedef enum
+{
+    ADMINLOGIN = 1,
+    USERLOGIN,
+    EXIT
+} MenuOption;
 
 int mainmenu() {
     struct user *users = NULL;
     int choice;
 
-    loadDataFromFile(&users, "bank_data.dat");
+    loadDataFromFile(&users, "bank_data.txt");
 
     while (1)
     {
@@ -21,9 +27,9 @@ int mainmenu() {
         printf("Select an option: ");
         scanf("%d", &choice);
 
-        switch (choice)
+        switch ((MenuOption)choice)
         {
-        case 1:
+        case ADMINLOGIN:
             if (adminlogin())
             {
                 printf("Admin login successful.\n");
@@ -35,7 +41,7 @@ int mainmenu() {
             }
             break;
 
-        case 2:
+        case USERLOGIN:
         {
             struct user *userlogin = userLogin(users);
             if (userlogin != NULL) {
@@ -49,9 +55,9 @@ int mainmenu() {
             break;
         }
 
-        case 3:
-            saveDataToFile(users, "bank_data.dat");
-            printf(" Thank you. Please visit again\n");
+        case EXIT:
+            saveDataToFile(users, "bank_data.txt");
+            printf("Thank you. Please visit again.\n");
             return 0;
 
         default:
@@ -60,3 +66,4 @@ int mainmenu() {
         }
     }
 }
+

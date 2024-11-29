@@ -6,6 +6,7 @@
 #include "finduserbyaccountnumber.h"
 #include "transaction.h"
 #include "bankaccount.h"
+#include "fileoperations.h"
 
 
 
@@ -28,6 +29,17 @@ int adminlogin()
 }
 
 
+typedef enum
+{
+    CREATACCOUNT = 1,
+    DELETEACCOUNT,
+    UPDATEACCOUNT,
+    VIEWUSERACCOUNTDETAILS,
+    VIEWUSERTRANSCATIONHISTORY,
+    SORTANDDISPLAYUSERSBYACCOUNTTYPE,
+    LOGOUT
+} MenuOption;
+
 
 void adminMenu(struct user **users)
 {
@@ -46,13 +58,12 @@ void adminMenu(struct user **users)
         scanf("%d", &choice);
 
 
-
-        switch (choice)
+        switch ((MenuOption)choice)
         {
-        case 1:
+        case CREATACCOUNT:
             createAccount(users);
             break;
-        case 2:
+        case DELETEACCOUNT:
         {
             int accountNumber;
             printf("Enter account number to delete: ");
@@ -60,7 +71,7 @@ void adminMenu(struct user **users)
             deleteAccount(users, accountNumber);
             break;
         }
-        case 3:
+        case UPDATEACCOUNT:
         {
             int accountNumber;
             printf("Enter account number to update: ");
@@ -68,7 +79,7 @@ void adminMenu(struct user **users)
             updateAccount(users, accountNumber);
             break;
         }
-        case 4:
+        case VIEWUSERACCOUNTDETAILS:
         {
             int accountNumber;
             printf("Enter account number to view details: ");
@@ -83,7 +94,7 @@ void adminMenu(struct user **users)
             }
             break;
         }
-        case 5:
+        case VIEWUSERTRANSCATIONHISTORY:
         {
             int accountNumber;
             printf("Enter account number to view transaction history: ");
@@ -98,10 +109,11 @@ void adminMenu(struct user **users)
             }
             break;
         }
-        case 6:
+        case SORTANDDISPLAYUSERSBYACCOUNTTYPE:
             sortUsersByAccountType(users);
             break;
-        case 7:
+        case LOGOUT:
+            saveDataToFile(*users, "bank_data.txt");
             printf("... Logout from Admin ...\n");
             return;
         default:
@@ -227,6 +239,13 @@ void deleteAccount(struct user **users, int accountNumber)
     printf("Account Number %d deleted successfully.\n", accountNumber);
 }
 
+typedef enum{
+    NAME=1,
+    MOBILENUMBER,
+    EMAIL,
+    ADDRESS,
+    EXIT
+} MainOption;
 
 
 void updateAccount(struct user **users, int accountNumber)
@@ -252,27 +271,27 @@ void updateAccount(struct user **users, int accountNumber)
 
         switch (choice)
         {
-        case 1:
+        case NAME:
             printf("Enter New Name: ");
             scanf(" %[^\n]", user->name);
             printf("Name updated successfully.\n");
             break;
-        case 2:
+        case MOBILENUMBER:
             printf("Enter New Mobile Number: ");
             scanf(" %[^\n]", user->mobile);
             printf("Mobile number updated successfully.\n");
             break;
-        case 3:
+        case EMAIL:
             printf("Enter New Email: ");
             scanf("%s", user->email);
             printf("Email updated successfully.\n");
             break;
-        case 4:
+        case ADDRESS:
             printf("Enter New Address: ");
             scanf(" %[^\n]", user->address);
             printf("Address updated successfully.\n");
             break;
-        case 5:
+        case EXIT:
             printf("Exiting update menu.\n");
             return;
         default:

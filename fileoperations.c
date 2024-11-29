@@ -86,5 +86,3 @@ void loadDataFromFile(struct user **users, const char *filename) {
 
 
 
-
-
